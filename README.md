@@ -38,7 +38,6 @@ public class VerifyCodeController {
      * @description 获取验证码
      **/
     @GetMapping("/verify-code/code")
-    @ResponseBody
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String text = this.producer.createText();
         req.getSession().setAttribute("CODE", text);
