@@ -5,7 +5,45 @@
 <dependency>
   <groupId>com.github.aqiu202</groupId>
   <artifactId>captcha-spring-boot-starter</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.3</version>
 </dependency>
 ```
 项目开源地址：[https://github.com/aqiu202/captcha-spring-boot-starter](https://github.com/aqiu202/captcha-spring-boot-starter)
+
+## 配置
+```yaml
+captcha:
+  height: 80 #图片高度
+  width: 200 #图片宽度
+  has-border: true #设置图片为有边框
+  noise: #噪化方式先阴影，再添加曲线，再扭曲变形最后添加噪点
+    styles:
+      - SHADOW
+      - LINE
+      - SHEAR
+      - POINT
+```
+
+## 使用试例
+```java
+@Validated
+@RestController
+public class VerifyCodeController {
+
+    @Autowired
+    private CaptchaProducer producer;
+
+    /**
+     * @author aqiu
+     * @description 获取验证码
+     **/
+    @GetMapping("/verify-code/code")
+    @ResponseBody
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String text = this.producer.createText();
+        req.getSession().setAttribute("CODE", text);
+        this.producer.writeToResponse(text, resp);
+    }
+
+}
+```
