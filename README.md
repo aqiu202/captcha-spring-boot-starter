@@ -34,8 +34,8 @@ public class VerifyCodeController {
     private CaptchaProducer producer;
 
     /**
+     * 获取验证码
      * @author aqiu
-     * @description 获取验证码
      **/
     @GetMapping("/verify-code/code")
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
